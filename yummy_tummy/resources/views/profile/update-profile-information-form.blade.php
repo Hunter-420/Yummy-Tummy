@@ -59,6 +59,20 @@
             <x-input-error for="name" class="mt-2" />
         </div>
 
+         <!-- Contact NO -->
+         <div class="col-span-6 sm:col-span-4">
+            <x-label for="contactno" value="{{ __('Contact No') }}" />
+            <x-input id="contactno" type="text" class="mt-1 block w-full" wire:model="state.contactno" required autocomplete="contactno" />
+            <x-input-error for="contactno" class="mt-2" />
+        </div>
+
+         <!-- Location -->
+         <div class="col-span-6 sm:col-span-4">
+            <x-label for="location" value="{{ __('Location') }}" />
+            <x-input id="location" type="text" class="mt-1 block w-full" wire:model="state.location" required autocomplete="location" />
+            <x-input-error for="location" class="mt-2" />
+        </div>
+
         <!-- Email -->
         <div class="col-span-6 sm:col-span-4">
             <x-label for="email" value="{{ __('Email') }}" />

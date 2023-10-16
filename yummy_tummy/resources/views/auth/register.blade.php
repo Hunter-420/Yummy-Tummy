@@ -19,6 +19,11 @@
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             </div>
 
+            <div>
+                <x-label for="contactno" value="{{ __('Contact No') }}" />
+                <x-input id="contactno" class="block mt-1 w-full" type="text" name="contactno" :value="old('contactno')" required autofocus autocomplete="contactno" />
+            </div>
+
             <div class="mt-4">
                 <x-label for="password" value="{{ __('Password') }}" />
                 <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
@@ -27,6 +32,19 @@
             <div class="mt-4">
                 <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
                 <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
+            </div>
+            <div class="mt-4">
+    <x-label for="role" value="{{ __('Role') }}" />
+    <select id="role" class="block mt-1 w-full" name="role" required>
+        <option value="0">Chief</option>
+        <option value="1">Customer</option>
+    </select>
+</div>
+
+
+            <div class="mt-4">
+                <x-label for="location" value="{{ __('location') }}" />
+                <x-input id="location" class="block mt-1 w-full" type="text" name="location" required autocomplete="location" />
             </div>
 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())

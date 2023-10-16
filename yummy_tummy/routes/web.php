@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\admin\AdminLoginController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -16,11 +14,8 @@ use App\Http\Controllers\admin\AdminLoginController;
 */
 
 Route::get('/', function () {
-    return view('admin.login');
+    return view('welcome');
 });
-
-// route admin/AdminLoginController
-Route::get('/admin/login', [AdminLoginController::class,'index'])->name('admin.login');
 
 Route::middleware([
     'auth:sanctum',
