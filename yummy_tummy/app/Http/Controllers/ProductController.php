@@ -5,20 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Rules\ValidChiefId;
+use Illuminate\Support\Facades\Auth;
+
+
+
 
 class ProductController extends Controller
 {
     public function index()
     {
         // Retrieve a list of products and display them.
-        $products = Product::all();
-        return view('products.index', compact('products'));
+        $user = auth()->user();
+        $products = Product::where('chief_id', $user->id)->get();
+        return view('admin.products.index',compact('products'));
     }
 
     public function create()
     {
         // Display a form for creating a new product.
-        return view('products.create');
+        return view('admin.products.create');
     }
 
     public function store(Request $request)
@@ -26,16 +31,34 @@ class ProductController extends Controller
         // Store a new product based on the submitted form data.
         $validatedData = $request->validate([
             // Define validation rules here
+
             'food_name' => 'required',
-        'food_image' => 'nullable',
+       
         'food_descriptions' => 'required',
-        'ingredients' => 'required',
-        'is_available' => 'required|boolean',
-        'category_tag' => 'required',
-        'quantity_available' => 'required|integer',
+        'ingredients' => 'nullable',
+        'is_available' => 'required|in:true,false',
+        'category_tag' => 'nullable',
+        'quantity_available' => 'nullable|integer',
         'food_price' => 'required|numeric',
-        'chief_id' => ['required', new ValidChiefId],
+      
         ]);
+
+         // Convert the string value to a boolean
+    $validatedData['is_available'] = filter_var($request->input('is_available'), FILTER_VALIDATE_BOOLEAN);
+
+        
+
+    if($request->file('food_image')){
+        $file= $request->file('food_image');
+        $filename= date('YmdHi').$file->getClientOriginalName();
+        $file-> move(public_path('products'), $filename);
+        $validatedData['food_image']= $filename;
+    }
+
+
+            // Set the chief_id to the currently authenticated user's ID
+    $validatedData['chief_id'] = Auth::id();
+
         Product::create($validatedData);
 
         return response()->json(['message' => 'Product created successfully'], 201);    }
@@ -51,7 +74,7 @@ class ProductController extends Controller
     {
         // Display a form for editing a product.
         $product = Product::findOrFail($id);
-        return view('products.edit', compact('product'));
+        return view('admin.products.edit', compact('product'));
     }
 
     public function update(Request $request, $id)
@@ -59,19 +82,49 @@ class ProductController extends Controller
         // Update a specific product based on the submitted form data.
         $validatedData = $request->validate([
             // Define validation rules here
+
+            'food_name' => 'required',
+       
+        'food_descriptions' => 'required',
+        'ingredients' => 'nullable',
+        'is_available' => 'required|in:true,false',
+        'category_tag' => 'nullable',
+        'quantity_available' => 'nullable|integer',
+        'food_price' => 'required|numeric',
+      
         ]);
+
+         // Convert the string value to a boolean
+    $validatedData['is_available'] = filter_var($request->input('is_available'), FILTER_VALIDATE_BOOLEAN);
+
+        
+
+    if($request->file('food_image')){
+        $file= $request->file('food_image');
+        $filename= date('YmdHi').$file->getClientOriginalName();
+        $file-> move(public_path('products'), $filename);
+        $validatedData['food_image']= $filename;
+    }
+
+
+            // Set the chief_id to the currently authenticated user's ID
+    $validatedData['chief_id'] = Auth::id();
+
         $product = Product::findOrFail($id);
         $product->update($validatedData);
 
-        return redirect()->route('products.index');
+        return redirect()->route('admin.viewProduct',$id)->with('success', 'Product updated successfully');
     }
 
     public function destroy($id)
     {
         // Delete a specific product.
-        $product = Product::findOrFail($id);
-        $product->delete();
+    $product = Product::findOrFail($id);
 
-        return redirect()->route('products.index');
+    // Perform the deletion
+    $product->delete();
+
+    // Redirect to the index page or any other page after deletion
+    return redirect()->route('admin.viewProduct')->with('success', 'Product deleted successfully');
     }
 }

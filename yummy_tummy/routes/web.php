@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,4 +38,15 @@ Route::middleware([
 
 Route::resource('products', ProductController::class);
 
+// Route::post('/admin/add-product', 'ProductController@store')->name('admin.addProduct');
+Route::get('/admin/add-product', [ProductController::class, 'create'])->name('admin.addProduct');
+Route::post('/admin/add-product', [ProductController::class, 'store'])->name('admin.storeProduct');
+Route::get('/admin/view-product', [ProductController::class, 'index'])->name('admin.viewProduct');
+Route::get('/admin/edit-product/{id}', [ProductController::class, 'edit'])->name('admin.editProduct');
+// Route::get('/admin/edit-product/{id}', [ProductController::class, 'update'])->name('admin.editProduct');
+Route::post('/admin/edit-product/{id}', [ProductController::class, 'update'])->name('admin.editProduct');
+
+Route::get('/admin/delete-product/{id}', [ProductController::class, 'destroy'])->name('admin.deleteProduct');
+Route::post('/admin/delete-product/{id}', [ProductController::class, 'destroy'])->name('admin.deleteProduct');
+Route::delete('/admin/delete-product/{id}', [ProductController::class, 'destroy'])->name('admin.deleteProduct');
 

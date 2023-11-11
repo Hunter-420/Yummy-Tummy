@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('food_name');
             $table->string('food_image')->nullable();
             $table->text('food_descriptions');
-            $table->text('ingredients');
+            $table->text('ingredients')->nullable();
             $table->boolean('is_available');
-            $table->string('category_tag');
-            $table->integer('quantity_available');
+            $table->string('category_tag')->nullable();
+            $table->integer('quantity_available')->nullable();
             $table->decimal('food_price', 8, 2); // Example: 12345.67
             $table->timestamps();
  
