@@ -1,11 +1,6 @@
-<x-app-layout>
+@extends('layouts.dashboard')
+@section('content')
 
-    <x-slot name="header">
-    
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-    Welcome h, {{ auth()->user()->name }}
-</h2>
-    </x-slot>
 
 
     <!doctype html>
@@ -19,30 +14,7 @@
   <body>
     
 
-
-  <div class="text-center bg-white">
-
-  <div class="row">
-    <div class="col-2">
-    <div class="container text-left ">
-  <div class="col align-items-start">
-    <div class="col mt-5">
-      One of three columns
-    </div>
-    <div class="col mt-5">
-      One of three columns
-    </div>
-    <div class="col mt-5 d-flex ">
-    
-    <img class="h-8  w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" /> 
-    <h1 class="pl-2">{{ auth()->user()->name }}</h1>
-    </div>
-  </div>
-</div>
-    </div>
-    <div class="col-9">col-10</div>
-  </div>
-</div>
+<h1>Dashboard</h1>
 
 
 
@@ -57,5 +29,5 @@
 </body>
 </html>
 
-</x-app-layout>
+@endsection
 

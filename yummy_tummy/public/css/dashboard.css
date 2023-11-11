@@ -1,0 +1,31 @@
+/* public/css/dashboard.css */
+
+#wrapper {
+    display: flex;
+}
+
+#sidebar {
+    width: 200px;
+    background-color: #333;
+    padding: 20px;
+}
+
+#sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#sidebar ul li {
+    margin-bottom: 10px;
+}
+
+#sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+#page-content {
+    flex: 1;
+    padding: 20px;
+}

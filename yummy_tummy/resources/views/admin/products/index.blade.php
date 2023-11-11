@@ -1,3 +1,5 @@
+@extends('layouts.dashboard')
+@section('content')
 <!doctype html>
 <html lang="en">
 
@@ -7,13 +9,16 @@
     <title>View Products</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 
 <body>
 
-    <div class="m-10 p-10">
+    <div class="pt-10 mt-10">
         <div class="table-responsive">
-            <table class="table" class="m-10 p-10">
+            <table class="table" class="">
                 <thead class="table-dark">
                     <tr>
                         <th scope="col">ID</th>
@@ -22,6 +27,8 @@
                         <th scope="col">Status</th>
                         <th scope="col">Available Quantity</th>
                         <th scope="col">Price</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
@@ -43,6 +50,13 @@
                         </td>
                         <td>{{$data->quantity_available}}</td>
                         <td>{{$data->food_price}}</td>
+                        <td><a  href="{{ route('admin.editProduct',$data->id) }}">  <img src="{{ url('icons/pen-solid.svg') }}"
+                                style="height: 30px; width: 30px;"></a>
+                        
+                    </td>
+                    <td><a  href="{{ route('admin.deleteProduct',$data->id) }}"><img src="{{ url('icons/trash-solid.svg') }}"
+                                style="height: 30px; width: 30px;"></a></a>
+                    </td>
                     </tr>
                     @endforeach
 
@@ -95,3 +109,4 @@
 </body>
 
 </html>
+@endsection
