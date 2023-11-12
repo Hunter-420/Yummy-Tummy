@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Rules\ValidChiefId;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 
 
 
@@ -127,4 +129,36 @@ class ProductController extends Controller
     // Redirect to the index page or any other page after deletion
     return redirect()->route('admin.viewProduct')->with('success', 'Product deleted successfully');
     }
+
+
+    protected $table = 'products';
+        // Define the relationship with the User model
+        public function chief()
+        {
+            return $this->belongsTo(User::class, 'id');
+        }
+
+    public function productShowByLocation()
+    {
+          // Retrieve the currently logged-in user
+        $user = Auth::user();
+
+        // Retrieve products with the chief's location matching the user's location
+        $products = DB::table('products')
+            ->join('users', 'products.chief_id', '=', 'users.id')
+            ->where('users.location', $user->location)
+            ->select('products.*') // adjust this based on your actual column names
+            ->get();
+ 
+         return view('customer.products.index', ['products' => $products]);
+
+    }
+
+    public function allProductShow()
+    {
+        $products = Product::all(); 
+        return view('customer.products.index', ['products' => $products]);
+    }
+
+
 }

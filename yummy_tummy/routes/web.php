@@ -50,3 +50,11 @@ Route::get('/admin/delete-product/{id}', [ProductController::class, 'destroy'])-
 Route::post('/admin/delete-product/{id}', [ProductController::class, 'destroy'])->name('admin.deleteProduct');
 Route::delete('/admin/delete-product/{id}', [ProductController::class, 'destroy'])->name('admin.deleteProduct');
 
+
+// for customer routing
+Route::get('/customer/view-product', [ProductController::class, 'allProductShow'])->name('customer.viewProduct');
+// products only in same location of chief and customer
+Route::get('/customer/view-product-location', [ProductController::class, 'productShowByLocation'])->name('customer.viewProductByLocation');
+
+
+

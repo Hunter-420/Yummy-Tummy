@@ -9,12 +9,8 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
     </x-slot>
+    <div class="d-flex justify-content-end">@livewire('navigation-menu')</div>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <x-welcome />
-            </div>
-        </div>
-    </div>
+
+
 </x-guest-layout>
