@@ -43,7 +43,21 @@
 	                    <div class="card-body">
 	                        <h5 class="card-title">{{ $product->food_name }}</h5>
 	                        <p class="card-text">{{ $product->food_descriptions }}</p>
-	                        <button class="btn btn-primary add-to-cart" data-product-id="1">Add to Cart</button>
+                            <a  href="">
+	                        <div class="d-flex">
+                            <form action="{{ route('customer.carts.store') }}" method="post">
+    @csrf
+    <input type="hidden" name="customer_id" value='{{Auth::user()->name }}'>
+    <input type="hidden" name="chef_id" value='{{$product->chief_id}}'>
+    <input type="hidden" name="product_id" value='{{$product->id}}'>
+
+    <button class="btn btn-primary add-to-cart" data-product-id="1" type="submit">Add to Cart</button></a>
+</form>
+
+                           
+                            <a  href="{{ route('customer.viewCartProduct',$product->id) }}">
+                            <button class="btn btn-secondary add-to-cart ml-5" data-product-id="1">Product Details</button></a>
+                            </div>
 	                    </div>
 	                </div>
                 </div>

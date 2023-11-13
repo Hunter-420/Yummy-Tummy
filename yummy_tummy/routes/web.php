@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\TransactionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -55,6 +58,18 @@ Route::delete('/admin/delete-product/{id}', [ProductController::class, 'destroy'
 Route::get('/customer/view-product', [ProductController::class, 'allProductShow'])->name('customer.viewProduct');
 // products only in same location of chief and customer
 Route::get('/customer/view-product-location', [ProductController::class, 'productShowByLocation'])->name('customer.viewProductByLocation');
+
+// for cart
+Route::get('/customer/cart/{id}', [CartController::class, 'viewCart'])->name('customer.viewCartProduct');
+
+// payment
+Route::get('/customer/payment', [TransactionController::class, 'index'])->name('customer.payment');
+
+
+// add to cart
+Route::post('/addcarts', [CartController::class, 'addToCart'])->name('customer.carts.store');
+
+
 
 
 
