@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Cart;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -48,14 +49,41 @@ class CartController extends Controller
         return view('customer.products.index', ['products' => $products]);
     }
 
-    public function removeFromCart($userId, $productId)
+    public function removeFromCart($id)
     {
-        // Logic to remove a product from the user's shopping cart
+                // Delete a specific product.
+    $product = Cart::findOrFail($id);
+
+    // Perform the deletion
+    $product->delete();
+
+    // Redirect to the index page or any other page after deletion
+    return redirect()->route('customer.viewMyCartProduct')->with('success', 'Product deleted successfully');
     }
 
     public function clearCart($userId)
     {
         // Logic to clear all items from the user's shopping cart
+    }
+
+    public function myCart()
+    {
+        $userId = Auth::id();
+
+        // Perform a join between carts and products tables
+        $cartItems = DB::table('carts')
+            ->join('products', 'carts.product_id', '=', 'products.id')
+            ->join('users', 'carts.chef_id', '=', 'users.id') // Join with the users table for chief details
+            ->select('products.*', 'carts.*','users.name as chef_name') // Select all columns from both tables            
+            ->where('carts.customer_id', '=', $userId)
+            ->get();
+    
+        // Calculate the sum of product prices
+        $totalPrice = $cartItems->sum('food_price');
+    
+        return view('customer.cart.myCart', compact('cartItems', 'totalPrice'));
+    
+        
     }
 
     // Additional methods for updating quantities, applying discounts, etc.

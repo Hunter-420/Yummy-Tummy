@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details</title>
+    <title>My cart</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script>
 
 </head>
-<body>
+<body style="background-color: #eee;">
 <section class="h-100 h-custom" style="background-color: #eee;">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -19,7 +19,7 @@
 
             <div class="row">
 
-              <div class="">
+
               <section style="background-color: #eee;">
   <!-- <div class="container py-5">
     <div class="row">
@@ -33,23 +33,18 @@
         </nav>
       </div>
     </div> -->
-    <h2>Chief Details</h2>
+    <h2>Your Details</h2>
 
     <div class="row d-flex">
       <div class="col-lg-4 ">
         <div class="card mb-4 ">
           <div class="card-body text-center">
-          @if(is_null($productDetails->profile_photo_path))
-          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
-              class="rounded-circle img-fluid" style="width: 150px;">
-    @else
-    <img src="{{ url('storage/'.$productDetails->profile_photo_path)}}" alt="avatar"
-              class="rounded-circle img-fluid" style="width: 150px;">   
-               @endif
+         
+          <img src="{{ Auth::user()->profile_photo_url }}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;"/>
+
            
-            <!-- <h5 class="my-3">{{ $productDetails->name }}</h5> -->
-            <!-- <p class="text-muted mb-1">Full Stack Developer</p> -->
-            <!-- <p class="text-muted mb-4">{{ $productDetails->location }}</p> -->
+            <!-- <h5 class="my-3">{{ Auth::user()->name }}</h5> -->
+          
 
           </div>
         </div>
@@ -62,7 +57,7 @@
                 <p class="mb-0">Full Name</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">{{ $productDetails->name }}</p>
+                <p class="text-muted mb-0">{{ Auth::user()->name }}</p>
               </div>
             </div>
             <hr>
@@ -71,7 +66,7 @@
                 <p class="mb-0">Email</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">{{ $productDetails->email }}</p>
+                <p class="text-muted mb-0">{{ Auth::user()->email }}</p>
               </div>
             </div>
             <!-- <hr>
@@ -80,7 +75,7 @@
                 <p class="mb-0">Phone</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">{{ $productDetails->contactno }}</p>
+                <p class="text-muted mb-0">{{ Auth::user()->name }}</p>
               </div>
             </div> -->
             <hr>
@@ -89,7 +84,7 @@
                 <p class="mb-0">Mobile</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">{{ $productDetails->contactno }}</p>
+                <p class="text-muted mb-0">{{ Auth::user()->contactno }}</p>
               </div>
             </div>
             <hr>
@@ -98,96 +93,73 @@
                 <p class="mb-0">Address</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">{{ $productDetails->location }}</p>
+                <p class="text-muted mb-0">{{ Auth::user()->location }}</p>
               </div>
             </div>
           </div>
         </div>
           </div>
-</section>              </div>
+</section>             
+ </div>
 
 
 
-
-<!-- product detail -->
-<h2>Product Details</h2>
-<div class="">
-        <div class="card mb-4">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Product Name</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{ $productDetails->food_name }}</p>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Image</p>
-              </div>
-              <div class="col-sm-9">
-              <img src="{{ url('products/'.$productDetails->food_image) }}" class="card-img-top" alt="Product 1"  style="height: 200px; width: 300px;">
-              </div>
-            </div>
-            <!-- <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Phone</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{ $productDetails->contactno }}</p>
-              </div>
-            </div> -->
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Description</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{ $productDetails->food_descriptions }}</p>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Category</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{ $productDetails->category_tag }}</p>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Status</p>
-              </div>
-              <div class="col-sm-9">
-              <p class="text-muted mb-0">
-        @if($productDetails->is_available == 1)
+<h2 class="">Cart Details</h2>
+<!-- my cart detail -->
+<table class="table align-middle mb-0 bg-white">
+  <thead class="bg-light">
+    <tr>
+      <th>Product</th>
+      <th>Chief Name</th>
+      <th>Status</th>
+      <th>Price</th>
+      <th>Remove</th>
+    </tr>
+  </thead>
+  <tbody>
+  @foreach($cartItems as $cartItem)
+    <tr>
+      <td>
+      <a  href="{{ route('customer.viewCartProduct',$cartItem->product_id) }}">
+        <div class="d-flex align-items-center">
+          <img
+              src="{{ url('products/'.$cartItem->food_image) }}"
+              alt=""
+              style="width: 45px; height: 45px"
+              class="rounded-circle"
+              />
+          <div class="ms-3">
+            <p class="fw-bold mb-1">{{$cartItem->food_name}}</p>
+           
+          </div>
+        </div>
+</a>
+      </td>
+      <td>
+        <p class="fw-normal mb-1">{{$cartItem->chef_name}}</p>
+        
+      </td>
+      <td>
+      @if($cartItem->is_available == 1)
             Available
         @else
             Not Available
         @endif
-    </p>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Price</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{ $productDetails->food_price }}</p>
-              </div>
-            </div>
-        
-          </div>
-        </div>
-          </div>
+      </td>
+      <td>{{$cartItem->food_price}}</td>
+      <td>
+      <a  href="{{ route('customer.deleteMyCartProduct',$cartItem->id) }}"><img src="{{ url('icons/trash-solid.svg') }}"
+                                style="height: 30px; width: 30px;"></a>
+      </td>
+    </tr>
+
+    @endforeach
 
 
+
+
+  </tbody>
+</table>
 
 
 
@@ -239,7 +211,7 @@
         var btn = document.getElementById("payment-button");
         btn.onclick = function () {
             // minimum transaction amount must be 10, i.e 1000 in paisa.
-            var amountInRupies = {{ $productDetails->food_price }} * 100; // Assuming food_price is in rupees
+            var amountInRupies = {{ $totalPrice}} * 100; // Assuming food_price is in rupees
         checkout.show({ amount: amountInRupies });
         }
 

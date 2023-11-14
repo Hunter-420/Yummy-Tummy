@@ -69,6 +69,17 @@ Route::get('/customer/payment', [TransactionController::class, 'index'])->name('
 // add to cart
 Route::post('/addcarts', [CartController::class, 'addToCart'])->name('customer.carts.store');
 
+// my cart details
+Route::get('/customer/mycart', [CartController::class, 'myCart'])->name('customer.viewMyCartProduct');
+
+// delete item from my cart
+Route::post('/customer/delete-mycart/{id}', [CartController::class, 'removeFromCart'])->name('customer.deleteMyCartProduct');
+Route::get('/customer/delete-mycart/{id}', [CartController::class, 'removeFromCart'])->name('customer.deleteMyCartProduct');
+Route::delete('/customer/delete-mycart/{id}', [CartController::class, 'removeFromCart'])->name('customer.deleteMyCartProduct');
+
+
+
+
 
 
 
