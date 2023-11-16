@@ -59,6 +59,9 @@ Route::get('/customer/view-product', [ProductController::class, 'allProductShow'
 // products only in same location of chief and customer
 Route::get('/customer/view-product-location', [ProductController::class, 'productShowByLocation'])->name('customer.viewProductByLocation');
 
+// show products by searching
+Route::get('/search/products', [ProductController::class, 'searchProducts'])->name('search.products');
+
 // for cart
 Route::get('/customer/cart/{id}', [CartController::class, 'viewCart'])->name('customer.viewCartProduct');
 
@@ -76,6 +79,8 @@ Route::get('/customer/mycart', [CartController::class, 'myCart'])->name('custome
 Route::post('/customer/delete-mycart/{id}', [CartController::class, 'removeFromCart'])->name('customer.deleteMyCartProduct');
 Route::get('/customer/delete-mycart/{id}', [CartController::class, 'removeFromCart'])->name('customer.deleteMyCartProduct');
 Route::delete('/customer/delete-mycart/{id}', [CartController::class, 'removeFromCart'])->name('customer.deleteMyCartProduct');
+
+
 
 
 

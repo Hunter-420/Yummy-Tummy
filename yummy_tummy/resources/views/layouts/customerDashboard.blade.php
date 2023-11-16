@@ -21,15 +21,16 @@
                       <a href="{{ route('customer.viewProductByLocation') }}">  <h5 class="brand-name">Yummy Tummy</h5></a>
                     </div>
                     <div class="col-md-4 my-auto">
-                        <form role="search">
-                            <div class="input-group">
-                                <input type="search" placeholder="Search your product" class="form-control" />
-                                <button class="btn bg-white" type="submit">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+    <form action="{{ route('search.products') }}" method="GET">
+        <div class="input-group">
+            <input type="search" name="search" placeholder="Search your product" class="form-control" />
+            <button class="btn bg-white" type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+    </form>
+</div>
+
                     <div class="col-md-6 my-auto">
                         <ul class="nav justify-content-end">
                         <li class="nav-item dropdown">

@@ -142,15 +142,16 @@ class ProductController extends Controller
     {
           // Retrieve the currently logged-in user
         $user = Auth::user();
+        $searchTerm = $user->location;
 
         // Retrieve products with the chief's location matching the user's location
         $products = DB::table('products')
             ->join('users', 'products.chief_id', '=', 'users.id')
-            ->where('users.location', $user->location)
+            ->where('users.location', 'LIKE', '%' . $user->location . '%')
             ->select('products.*','users.name as chef_name') // adjust this based on your actual column names
             ->get();
  
-         return view('customer.products.index', ['products' => $products]);
+            return view('customer.products.index', ['products' => $products, 'searchTerm' => $searchTerm]);
 
     }
 
@@ -160,6 +161,22 @@ class ProductController extends Controller
         ->select('products.*', 'users.name as chef_name')
         ->get();
             return view('customer.products.index', ['products' => $products]);
+    }
+
+    public function searchProducts(Request $request)
+{
+    $searchTerm = $request->input('search');
+
+    // Assuming you have a relationship between User and Product models
+    $products = Product::join('users', 'products.chief_id', '=', 'users.id')
+    ->where('food_descriptions', 'LIKE', '%' . $searchTerm . '%')
+    ->orWhere('food_name', 'LIKE', '%' . $searchTerm . '%')
+    ->orWhere('users.name', 'LIKE', '%' . $searchTerm . '%') // assuming chef_name is stored in the name column of users table
+    ->orWhere('users.location', 'LIKE', '%' . $searchTerm . '%')        
+    ->select('products.*','users.name as chef_name')
+        ->get();
+
+        return view('customer.products.index', compact('products', 'searchTerm'));
     }
 
 

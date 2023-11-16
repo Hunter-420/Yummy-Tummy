@@ -5,7 +5,7 @@
 	<head>
 	    <meta charset="UTF-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    <title>Shopping Cart</title>
+	    <title>Products</title>
 	    <!-- Bootstrap CSS -->
 	   
 	</head>
@@ -18,7 +18,7 @@
         <div class="p-10">
             <div class="row container">
                 <div class="col-md-12 pl-10">
-                    <h4 class="mb-4 ">Our Products</h4>
+                    <h4 class="mb-4 ">Our Products Based on {{$searchTerm}}</h4>
                 </div>
             @foreach($products as $product)
 
