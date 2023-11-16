@@ -37,6 +37,7 @@ class CartController extends Controller
     public function addToCart(Request $request)
     {
         // Logic to add a product to the user's shopping cart
+        $searchTerm = session('searchTerm');
           // Assuming you have the user's ID and product's ID available
           $cart = Cart::create([
             'customer_id' => auth()->id(), // Assuming the customer is the authenticated user
@@ -46,7 +47,7 @@ class CartController extends Controller
         ]);
 
         $products = Product::all(); 
-        return view('customer.products.index', ['products' => $products]);
+        return view('customer.products.index', ['products' => $products,'searchTerm' => $searchTerm]);
     }
 
     public function removeFromCart($id)

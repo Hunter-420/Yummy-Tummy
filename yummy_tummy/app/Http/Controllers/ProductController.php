@@ -157,15 +157,17 @@ class ProductController extends Controller
 
     public function allProductShow()
     {
+        $searchTerm = 'All Locations';
         $products = Product::join('users', 'products.chief_id', '=', 'users.id')
         ->select('products.*', 'users.name as chef_name')
         ->get();
-            return view('customer.products.index', ['products' => $products]);
+            return view('customer.products.index', ['products' => $products,'searchTerm' => $searchTerm]);
     }
 
     public function searchProducts(Request $request)
 {
     $searchTerm = $request->input('search');
+    session(['searchTerm' => $searchTerm]);
 
     // Assuming you have a relationship between User and Product models
     $products = Product::join('users', 'products.chief_id', '=', 'users.id')
