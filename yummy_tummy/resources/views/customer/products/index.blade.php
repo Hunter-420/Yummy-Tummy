@@ -1,3 +1,5 @@
+@extends('layouts.customerDashboard')
+@section('content')
     <!DOCTYPE html>
 	<html lang="en">
 	<head>
@@ -5,66 +7,72 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	    <title>Shopping Cart</title>
 	    <!-- Bootstrap CSS -->
-	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	   
 	</head>
 	<body>
-	    <!-- Navigation -->
-	    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-	        <a class="navbar-brand" href="#">BrandName</a>
-	        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-	            <span class="navbar-toggler-icon"></span>
-	        </button>
-	        <div class="collapse navbar-collapse" id="navbarNav">
-	            <ul class="navbar-nav ml-auto">
-	                <li class="nav-item active">
-	                    <a class="nav-link" href="#">Home</a>
-	                </li>
-	                <li class="nav-item">
-	                    <a class="nav-link" href="#">Products</a>
-	                </li>
-	                <li class="nav-item">
-	                    <a class="nav-link" href="#">Cart</a>
-	                </li>
-	            </ul>
-	        </div>
-	    </nav>
+	
 	 
 	    <!-- Product List -->
 
-	    <section id="product-list" class="container m-5 ">
-
-	        <div class="row">
+        <div class="py-3 py-md-5 bg-light ">
+        <div class="p-10">
+            <div class="row container">
+                <div class="col-md-12 pl-10">
+                    <h4 class="mb-4 ">Our Products</h4>
+                </div>
             @foreach($products as $product)
 
-	            <div class="col-md-4">
-
-	                <div class="card">
-	                    <img src="{{ url('products/'.$product->food_image) }}" class="card-img-top" alt="Product 1">
-	                    <div class="card-body">
-	                        <h5 class="card-title">{{ $product->food_name }}</h5>
-	                        <p class="card-text">{{ $product->food_descriptions }}</p>
-                            <a  href="">
-	                        <div class="d-flex">
-                            <form action="{{ route('customer.carts.store') }}" method="post">
-    @csrf
-    <input type="hidden" name="customer_id" value='{{Auth::user()->name }}'>
-    <input type="hidden" name="chef_id" value='{{$product->chief_id}}'>
-    <input type="hidden" name="product_id" value='{{$product->id}}'>
-
-    <button class="btn btn-primary add-to-cart" data-product-id="1" type="submit">Add to Cart</button></a>
-</form>
-
-                           
-                            <a  href="{{ route('customer.viewCartProduct',$product->id) }}">
-                            <button class="btn btn-secondary add-to-cart ml-5" data-product-id="1">Product Details</button></a>
-                            </div>
-	                    </div>
-	                </div>
-                </div>
-                @endforeach
-	            </div>
 	            
-	    </section>
+
+
+            <div class="col-md-3 container">
+
+                            <div class="product-card text-center">
+                        <div class="product-card-img">
+                        @if($product->is_available)
+    <label class="stock bg-success">In Stock</label>
+@else
+    <label class="stock bg-danger">Out of Stock</label>
+@endif
+
+                            <img src="{{ url('products/'.$product->food_image) }}" alt="Laptop">
+                        </div>
+                        <div class="product-card-body">
+                            <p class="product-brand">Chef: {{$product->chef_name}}</p>
+                            <h5 class="product-name">
+                               <a href="">
+                               {{ $product->food_name }}                               </a>
+                            </h5>
+                            <div>
+                                <span class="selling-price">Rs {{ $product->food_price }}</span>
+                                <!-- <span class="original-price">$799</span> -->
+                            </div>
+                            <div class="mt-2 d-flex text-center">
+    <div class="row w-100">
+        <div class="col">
+            <form action="{{ route('customer.carts.store') }}" method="post">
+                @csrf
+                <input type="hidden" name="customer_id" value='{{Auth::user()->name }}'>
+                <input type="hidden" name="chef_id" value='{{$product->chief_id}}'>
+                <input type="hidden" name="product_id" value='{{$product->id}}'>
+                <button class="btn btn-primary add-to-cart w-100" data-product-id="1" type="submit">Add to Cart</button>
+            </form>
+        </div>
+        <div class="col">
+            <a href="{{ route('customer.viewCartProduct', $product->id) }}" class="btn btn-secondary add-to-cart w-100">View</a>
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                </div>
+
+                 
+                @endforeach
+                </div>
+        </div>
+    </div>
     
 
 	 
@@ -95,47 +103,76 @@
 	    </section> -->
 	 
 	    <!-- Bootstrap & jQuery JS -->
-	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	    <script src="script.js"></script>
+	    
 
 
         <style>
-            	body {
-	    font-family: Arial, sans-serif;
-	}
-	 
-	#product-list .card {
-	    margin-bottom: 20px;
-	}
-	 
-	#shopping-cart {
-	    display: none;
-	}
-	 
-	#shopping-cart table {
-	    margin-top: 20px;
-	}
-	 
-	#shopping-cart table th {
-	    text-align: center;
-	}
-	 
-	#shopping-cart table td {
-	    vertical-align: middle;
-	}
-	 
-	#shopping-cart table td:last-child {
-	    text-align: right;
-	}
-	 
-	#shopping-cart table tfoot td:first-child {
-	    text-align: right;
-	}
-	 
-	#shopping-cart table tfoot td:last-child {
-	    font-weight: bold;
-	}
+            	/* Product Card */
+.product-card{
+    background-color: #fff;
+    border: 1px solid #ccc;
+    margin-bottom: 24px;
+}
+.product-card a{
+    text-decoration: none;
+}
+.product-card .stock{
+    position: absolute;
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px 12px;
+    margin: 8px;
+    font-size: 12px;
+}
+.product-card .product-card-img{
+    max-height: 260px;
+    overflow: hidden;
+    border-bottom: 1px solid #ccc;
+}
+.product-card .product-card-img img{
+    width: 100%;
+}
+.product-card .product-card-body{
+    padding: 10px 10px;
+}
+.product-card .product-card-body .product-brand{
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 4px;
+    color: #937979;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.product-card .product-card-body .product-name{
+    font-size: 20px;
+    font-weight: 600;
+    color: #000;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.product-card .product-card-body .selling-price{
+    font-size: 22px;
+    color: #000;
+    font-weight: 600;
+    margin-right: 8px;
+}
+.product-card .product-card-body .original-price{
+    font-size: 18px;
+    color: #937979;
+    font-weight: 400;
+    text-decoration: line-through;
+}
+.product-card .product-card-body .btn1{
+    border: 1px solid;
+    margin-right: 3px;
+    border-radius: 0px;
+    font-size: 12px;
+    margin-top: 10px;
+}
+/* Product Card End */
         </style>
 	</body>
 	</html>
+    @endsection

@@ -147,7 +147,7 @@ class ProductController extends Controller
         $products = DB::table('products')
             ->join('users', 'products.chief_id', '=', 'users.id')
             ->where('users.location', $user->location)
-            ->select('products.*') // adjust this based on your actual column names
+            ->select('products.*','users.name as chef_name') // adjust this based on your actual column names
             ->get();
  
          return view('customer.products.index', ['products' => $products]);
@@ -156,8 +156,10 @@ class ProductController extends Controller
 
     public function allProductShow()
     {
-        $products = Product::all(); 
-        return view('customer.products.index', ['products' => $products]);
+        $products = Product::join('users', 'products.chief_id', '=', 'users.id')
+        ->select('products.*', 'users.name as chef_name')
+        ->get();
+            return view('customer.products.index', ['products' => $products]);
     }
 
 

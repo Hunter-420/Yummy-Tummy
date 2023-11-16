@@ -31,8 +31,8 @@ Route::middleware([
         if ($user->role === 0) {
             return view('/admin/adminDashboard');
         } elseif ($user->role === 1) {
-            return view('/customer/customerDashboard'); 
-        } else {
+            return redirect('/customer/view-product-location');
+                } else {
             // Handle other roles or cases as needed
             // You might want to return an error view or redirect to another page.
         }
