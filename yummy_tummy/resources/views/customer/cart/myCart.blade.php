@@ -170,7 +170,24 @@
               </div>
               <div class="col-sm-9 d-flex">
               <button id="payment-button" class="container text-center ">Pay with Khalti</button>
-    <button id="cash-button" class="container">Pay with Cash</button>              </div>
+              <form id="order-form" method="post" action="{{ route('orders.createCart') }}">
+    @csrf
+
+    <!-- Loop through cart items -->
+    @foreach($cartItems as $item)
+        <input type="hidden" name="cart[{{ $item->id }}][customer_id]" value="{{ Auth::user()->id }}">
+        <input type="hidden" name="cart[{{ $item->id }}][chef_id]" value="{{ $item->chef_id }}">
+        <input type="hidden" name="cart[{{ $item->id }}][product_id]" value="{{ $item->product_id }}">
+        <input type="hidden" name="cart[{{ $item->id }}][payment_method]" value="Cash">
+        <input type="hidden" name="cart[{{ $item->id }}][payment_status]" value="0">
+        <input type="hidden" name="cart[{{ $item->id }}][price]" value="{{ $item->food_price }}">
+        <!-- Add other hidden fields as needed -->
+    @endforeach
+
+    <button type="submit" id="payment-button" class="container text-center">Order with Cash</button>
+</form>
+
+ </div>
             </div>
 
 

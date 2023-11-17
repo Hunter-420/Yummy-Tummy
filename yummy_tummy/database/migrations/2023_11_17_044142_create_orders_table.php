@@ -22,9 +22,9 @@ return new class extends Migration
             $table->timestamps();
 
             // Add foreign key constraints if needed
-            $table->foreign('customer_id')->references('id')->on('customers');
-            $table->foreign('chef_id')->references('id')->on('chefs');
-            $table->foreign('product_id')->references('id')->on('products');
+            // $table->foreign('customer_id')->references('id')->on('customers');
+            // $table->foreign('chef_id')->references('id')->on('chefs');
+            // $table->foreign('product_id')->references('id')->on('products');
         });
     }
 
@@ -33,11 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orderitems');
+        Schema::dropIfExists('orders');
     }
 };
-
-
-
-
-

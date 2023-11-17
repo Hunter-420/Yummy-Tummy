@@ -51,7 +51,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('customer.viewMyCartProduct') }}">
+                            <a class="nav-link" href="{{ route('customer.orders', Auth::user()->id) }}">
                                     <i class="fa-solid fa-utensils pr-5"></i> My Orders
                                 </a>
                             </li>

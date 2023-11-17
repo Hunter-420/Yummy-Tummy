@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\OrderController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -79,6 +81,25 @@ Route::get('/customer/mycart', [CartController::class, 'myCart'])->name('custome
 Route::post('/customer/delete-mycart/{id}', [CartController::class, 'removeFromCart'])->name('customer.deleteMyCartProduct');
 Route::get('/customer/delete-mycart/{id}', [CartController::class, 'removeFromCart'])->name('customer.deleteMyCartProduct');
 Route::delete('/customer/delete-mycart/{id}', [CartController::class, 'removeFromCart'])->name('customer.deleteMyCartProduct');
+
+
+// FOR ORDER ITEMS
+// Route to create a new order
+// Route::get('/orders/create', [OrderController::class, 'createOrder'])->name('orders.create');
+Route::post('/orders/create', [OrderController::class, 'createOrder'])->name('orders.create');
+Route::post('/orders/createCart', [OrderController::class, 'createCartOrder'])->name('orders.createCart');
+
+
+// Route to update the status of a specific order
+Route::put('/orders/{orderId}/update-status/{status}', [OrderController::class, 'updateOrderStatus'])
+    ->name('orders.updateStatus');
+
+// Route to view the details of a specific order
+Route::get('/orders/{orderId}', [OrderController::class, 'viewOrder'])->name('customer.view');
+
+// Route to view a user's order history
+Route::get('/user/{userId}/orders', [OrderController::class, 'viewUserOrders'])->name('customer.orders');
+
 
 
 

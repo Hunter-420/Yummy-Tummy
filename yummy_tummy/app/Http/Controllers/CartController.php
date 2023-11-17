@@ -19,10 +19,23 @@ class CartController extends Controller
        // Retrieve product details with the corresponding chief information using join
        $productDetails = DB::table('products')
        ->join('users', 'products.chief_id', '=', 'users.id')
-       ->select('products.*', 'users.*')
+       ->select(
+           'products.id as product_id',
+           'products.food_name',
+           'products.food_price',
+           'products.food_image',
+           'products.food_descriptions',
+           'products.category_tag',
+           'products.is_available',
+           'users.id as chief_id',
+           'users.email as email',
+           'users.contactno as contactno',
+           'users.name as name',
+           'users.location as location',
+           'users.profile_photo_path'
+       )
        ->where('products.id', '=', $productId)
        ->first();
-
    // Check if the product is found
    if (!$productDetails) {
        return response()->json(['error' => 'Product not found'], 404);
