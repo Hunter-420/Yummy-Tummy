@@ -99,6 +99,21 @@ Route::get('/orders/{orderId}', [OrderController::class, 'viewOrder'])->name('cu
 
 // Route to view a user's order history
 Route::get('/user/{userId}/orders', [OrderController::class, 'viewUserOrders'])->name('customer.orders');
+Route::get('/admin/{userId}/orders', [OrderController::class, 'viewAdminOrders'])->name('admin.orders');
+
+
+
+
+/*
+-----------------------------------------------------------------------------------------------------------------
+    FOR ADMIN
+-----------------------------------------------------------------------------------------------------------------
+*/
+// get product details with customer info
+Route::get('/admin/product/{id}', [ProductController::class, 'viewProductDetailAdmin'])->name('admin.viewProductDetails');
+
+
+
 
 
 

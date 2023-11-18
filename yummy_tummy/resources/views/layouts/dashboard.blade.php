@@ -47,7 +47,7 @@
 
   
   <div class="col mt-5">
-  <a href="{{ route('admin.viewProduct') }}"  class="d-flex"><img src="{{ url('icons/cart-shopping-solid.svg') }}"
+  <a href="{{ route('admin.orders', Auth::user()->id) }}"  class="d-flex"><img src="{{ url('icons/cart-shopping-solid.svg') }}"
                                 style="height: 30px; width: 30px;"/> <h1 class="ml-3 font-weight-bolder h3">Orders</h1></a>
   </div>
   <div class="col mt-5">

@@ -8,6 +8,8 @@ use App\Rules\ValidChiefId;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Cart;
+
 
 
 
@@ -179,6 +181,39 @@ class ProductController extends Controller
         ->get();
 
         return view('customer.products.index', compact('products', 'searchTerm'));
+    }
+
+
+    public function viewProductDetailAdmin($productId)
+    {
+       // Retrieve product details with the corresponding chief information using join
+       $productDetails = DB::table('products')
+       ->join('orders', 'products.id', '=', 'orders.product_id')
+       ->join('users','orders.customer_id', '=', 'users.id')
+       ->select(
+           'products.id as product_id',
+           'products.food_name',
+           'products.food_price',
+           'products.food_image',
+           'products.food_descriptions',
+           'products.category_tag',
+           'products.is_available',
+           'users.id as user_id',
+           'users.email as email',
+           'users.contactno as contactno',
+           'users.name as name',
+           'users.location as location',
+           'users.profile_photo_path'
+       )
+       ->where('products.id', '=', $productId)
+       ->first();
+   // Check if the product is found
+   if (!$productDetails) {
+       return response()->json(['error' => 'Product not found'], 404);
+   }
+
+   // Pass data to the view and return it
+   return view('admin.products.productDetails', ['productDetails' => $productDetails]);
     }
 
 

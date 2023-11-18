@@ -101,5 +101,32 @@ public function createCartOrder(Request $request)
     }
 
     // Additional methods for handling order-related functionality
+
+    public function viewAdminOrders($userId)
+    {
+        // Logic to retrieve and display a user's order history
+        // Retrieve the user by ID
+        $userID = Auth::id();
+    $user = User::find($userId);
+
+    // Check if the user exists
+    if (!$user) {
+        return redirect()->route('customer.viewProductByLocation')->with('error', 'User not found');
+    }
+
+  // Retrieve the user's orders with joined chef and product data
+  $orders = DB::table('orders')
+  ->join('products', 'orders.product_id', '=', 'products.id')
+  ->join('users', 'orders.customer_id', '=', 'users.id')
+  ->select('products.*', 'orders.*', 'users.name as chef_name')
+  ->where('orders.chef_id', '=', $userId)
+  ->get();
+
+    
+
+
+    // You can customize the view or pass additional data as needed
+    return view('admin.orders.order', ['orders' => $orders]);
+    }
 }
 
