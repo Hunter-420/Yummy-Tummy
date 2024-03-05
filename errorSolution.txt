@@ -1,2 +1,0 @@
-prolem in migration : nothing to migrate
---> php artisan migrate:refresh
