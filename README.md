@@ -1,4 +1,4 @@
-# Yummy Tummy Laravel Learning
+# Yummy Tummy - Online Homemade Food
 
 ## Description
 
