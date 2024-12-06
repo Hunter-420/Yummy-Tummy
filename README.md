@@ -2,7 +2,7 @@
 
 ## Description
 
-Yummy Tummy Laravel Learning is a project aimed at helping developers learn Laravel, a popular PHP framework, by building a simple food recipe application. This README file provides an overview of the project, its features, installation instructions, and usage guidelines.
+Yummy Tummy is a multi-vendor platform enabling home cooks to sell homemade dishes, featuring recipe management, authentic reviews, and secure transactions to enhance user experience.
 
 ## Features
 
